@@ -45,7 +45,7 @@ Eg. `/?define=hello`, will give you the Google dictionary definition of **hello*
 
 ### [WordHunter](https://github.com/Niweera/wordhunter)
 
-WordHunter application is under development. It provides possible words for given set of characters.
+[WordHunter](https://wordhunter.niweera.gq) application is under development. It provides possible words for given set of characters.
 
 ## Footnote
 
