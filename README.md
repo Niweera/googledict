@@ -35,6 +35,12 @@ Eg. `/?define=hello`, will give you the Google dictionary definition of **hello*
 | :-- | :-- | :-- | :-- | :-- |
 | `GET` | `/` | `?define={word}` | Give JSON response with the definitions of the `{word}`. | [`?define=hello`](https://dict.niweera.gq/?define=hello) |
 
+### Invalid use of GoogleDict
+
+| Method | Endpoint | Query | Description | Examples |
+| :-- | :-- | :-- | :-- | :-- |
+| `GET` | `/` | `?define={word+anotherWord}` | Will throw an error. Please use only a single word in the query. | [`?define=hell+fire`](https://dict.niweera.gq/?define=hell+fire) |
+
 ## Related Projects
 
 ### [WordHunter](https://github.com/Niweera/wordhunter)
