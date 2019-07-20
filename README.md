@@ -47,3 +47,7 @@ Eg. `/?define=hello`, will give you the Google dictionary definition of **hello*
 
 WordHunter application is under development. It provides possible words for given set of characters.
 
+## Footnote
+
+Without the insights from this repo [googleDictionaryAPI](https://github.com/meetDeveloper/googleDictionaryAPI) by [meetDeveloper](https://github.com/meetDeveloper), the development of GoogleDict Dictionary API service would be impossible...
+
