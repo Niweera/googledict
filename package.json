@@ -1,0 +1,18 @@
+{
+  "name": "googledict",
+  "version": "1.0.0",
+  "description": "Simplified Google Dictionary API.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Nipuna Weerasekara",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "random-useragent": "^0.3.1",
+    "request": "^2.83.0"
+  }
+}
