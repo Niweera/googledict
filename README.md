@@ -2,9 +2,9 @@
 
 ## Getting Started
 
-To use, pass the query string with parameter `define` equal to the word you want to get the meaning of.
+To view the meaning of a specific word, enter the word at the root endpoint.
 
-Eg. `/?define=hello`, will give you the Google dictionary definition of **hello**:
+Eg. `https://dict.niweera.gq/hello`, will give you the Google dictionary definition of **hello**:
 
 ```json
 {
@@ -23,13 +23,13 @@ Eg. `/?define=hello`, will give you the Google dictionary definition of **hello*
 
 | Method | Endpoint | Query | Description | Examples |
 | :-- | :-- | :-- | :-- | :-- |
-| `GET` | `/` | `?define={word}` | Give JSON response with the definitions of the `{word}`. | [`?define=hello`](https://dict.niweera.gq/?define=hello) |
+| `GET` | `/` | `{word}` | Give JSON response with the definitions of the `{word}`. | [`hello`](https://dict.niweera.gq/hello) |
 
 ### Invalid use of GoogleDict
 
 | Method | Endpoint | Query | Description | Examples |
 | :-- | :-- | :-- | :-- | :-- |
-| `GET` | `/` | `?define={word+anotherWord}` | Will throw an error. Please use only a single word in the query. | [`?define=hell+fire`](https://dict.niweera.gq/?define=hell+fire) |
+| `GET` | `/` | `{word+anotherWord}` | Will throw an error. Please use only a single word in the query. | [`hell+fire`](https://dict.niweera.gq/hell+fire) |
 
 ## Related Projects
 
