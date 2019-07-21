@@ -5,7 +5,7 @@ const request = require("request");
 const app = express();
 
 app.get("/:word", function(req, res) {
-  const queriedWord = req.params.word;
+  const queriedWord = req.params.word.split(/[^A-Za-z]/)[0];
 
   if (!queriedWord) {
     res.send(
@@ -17,16 +17,6 @@ app.get("/:word", function(req, res) {
     );
   } else {
     console.log(queriedWord);
-
-    if (encodeURIComponent(queriedWord).includes("%20")) {
-      res.header("Access-Control-Allow-Origin", "*");
-
-      return res.status(404).send(
-        JSON.stringify({
-          error: "Only one word can be defined at a time"
-        })
-      );
-    }
 
     var url;
 
@@ -70,7 +60,7 @@ app.get("/:word", function(req, res) {
           .first()
           .text();
 
-        dictionary.word = queryWord.replace(/[^A-Za-z]/g, "");
+        dictionary.word = queryWord.replace("·", "");
 
         dictionary.definition = "";
 
