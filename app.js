@@ -4,14 +4,14 @@ const request = require("request");
 
 const app = express();
 
-app.get("/", function(req, res) {
-  const queriedWord = req.query.define;
+app.get("/:word", function(req, res) {
+  const queriedWord = req.params.word;
 
   if (!queriedWord) {
     res.send(
       JSON.stringify({
         error: "No word is given!",
-        endpoint: "https://dict.niweera.gq/?define={word}",
+        endpoint: "https://dict.niweera.gq/{word}",
         note: "Only use a single word for queries"
       })
     );
@@ -65,25 +65,23 @@ app.get("/", function(req, res) {
           );
         }
 
-        dictionary.word = $("div.dDoNo span")
+        var queryWord = "";
+        queryWord = $("div.dDoNo span")
           .first()
           .text();
 
-        dictionary.definition = {};
+        dictionary.word = queryWord.replace(/[^A-Za-z]/g, "");
 
-        (definition = {}),
+        dictionary.definition = "";
+
+        (definition = ""),
           (defns = $(".lr_dct_ent.vmod.XpoqFe")),
           (mainPart = defns.first().find(".lr_dct_sf_h"));
 
         mainPart.each(function(i, element) {
-          var type = $(this)
-              .find("i")
-              .text(),
-            selector = $(".lr_dct_sf_sens")
-              .eq(i)
-              .find("div[style='margin-left:20px'] > .PNlCoe");
-
-          definition[type] = [];
+          var selector = $(".lr_dct_sf_sens")
+            .eq(i)
+            .find("div[style='margin-left:20px'] > .PNlCoe");
 
           selector.each(function(i, element) {
             var newDefinition = "";
@@ -92,8 +90,10 @@ app.get("/", function(req, res) {
               .find("div[data-dobid='dfn']")
               .text();
 
-            definition[type].push(newDefinition);
+            definition = newDefinition;
+            return false;
           });
+          return false;
         });
 
         dictionary.definition = definition;
@@ -110,6 +110,25 @@ app.get("/", function(req, res) {
       }
     );
   }
+});
+
+app.get("/", (req, res) => {
+  res.send(
+    JSON.stringify({
+      error: "No word is given!",
+      endpoint: "https://dict.niweera.gq/{word}",
+      note: "Only use a single word for queries"
+    })
+  );
+});
+
+const fourNaughtFour = {
+  error: "Invalid Endpoint!",
+  endpoint: "https://dict.niweera.gq/{word}",
+  note: "Only use a single word for queries"
+};
+app.get("*", function(req, res) {
+  res.status(404).json(fourNaughtFour);
 });
 
 // Start the server
