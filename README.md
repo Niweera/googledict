@@ -8,18 +8,8 @@ Eg. `/?define=hello`, will give you the Google dictionary definition of **hello*
 
 ```json
 {
-  "word": "hel·lo",
-  "definition": {
-    "exclamation": [
-      "used as a greeting or to begin a telephone conversation."
-    ],
-    "noun": [
-      "an utterance of “hello”; a greeting."
-    ],
-    "verb": [
-      "say or shout “hello”; greet someone."
-    ]
-  }
+  "word": "hello",
+  "definition": "used as a greeting or to begin a telephone conversation."
 }
 ```
 
