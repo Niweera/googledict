@@ -60,7 +60,7 @@ app.get("/:word", function(req, res) {
           .first()
           .text();
 
-        dictionary.word = queryWord.replace("·", "");
+        dictionary.word = queryWord.replace(/[^A-Za-z]/g, "");
 
         dictionary.definition = "";
 
