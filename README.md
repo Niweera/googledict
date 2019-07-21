@@ -29,7 +29,7 @@ Eg. `https://dict.niweera.gq/hello`, will give you the Google dictionary definit
 
 | Method | Endpoint | Query | Description | Examples |
 | :-- | :-- | :-- | :-- | :-- |
-| `GET` | `/` | `{word+anotherWord}` | Will throw an error. Please use only a single word in the query. | [`hell+fire`](https://dict.niweera.gq/hell+fire) |
+| `GET` | `/` | `{word anotherWord}` | Will throw an error. Please use only a single word in the query. | [`hell fire`](https://dict.niweera.gq/hell%20fire) |
 
 ## Related Projects
 
