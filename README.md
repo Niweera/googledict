@@ -63,6 +63,22 @@ Eg. `https://dict.niweera.gq/v2/hello`, will give you the Google dictionary defi
 
 [WordHunter](https://wordhunter.niweera.gq) application is under development. It provides possible words for given set of characters.
 
+## Meta
+
+Nipuna Weerasekara – [@Niweera](https://twitter.com/Niweera) – w.nipuna@gmail.com
+
+Distributed under the MIT license. See ``LICENSE`` for more information.
+
+[https://github.com/Niweera/googledict](https://github.com/Niweera/googledict)
+
+## Contributing
+
+1. Fork it (<https://github.com/Niweera/googledict/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
+
 ## Acknowledgement
 
 Without the insights from this repo [googleDictionaryAPI](https://github.com/meetDeveloper/googleDictionaryAPI) by [meetDeveloper](https://github.com/meetDeveloper), the development of GoogleDict Dictionary API service would be impossible...
