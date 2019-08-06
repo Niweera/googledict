@@ -4,7 +4,7 @@ var favicon = require("serve-favicon");
 
 const v1Main = require("./routes/v1/main");
 const v2Main = require("./routes/v2/main");
-const wh = require("./routes/wh/main");
+const wh = require("./routes/wh/wh");
 
 const app = express();
 app.use(favicon(path.join(__dirname, "./favicon.png")));
