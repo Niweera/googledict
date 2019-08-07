@@ -31,7 +31,7 @@ router.get("/:word", function(req, res) {
       })
     );
   } else {
-    console.log(queriedWord);
+    // console.log(queriedWord);
 
     var url;
 
@@ -55,12 +55,12 @@ router.get("/:word", function(req, res) {
         const $ = cheerio.load(body);
 
         if (!$(".hwg .hw").first()[0]) {
-          console.log(
-            $(".searchHeading")
-              .first()
-              .text()
-          );
-          console.log(queriedWord + " is not present in Dictionary.");
+          // console.log(
+          //   $(".searchHeading")
+          //     .first()
+          //     .text()
+          // );
+          // console.log(queriedWord + " is not present in Dictionary.");
           res.header("Access-Control-Allow-Origin", "*");
           return res.status(404).send(
             JSON.stringify({
@@ -88,62 +88,72 @@ router.get("/:word", function(req, res) {
 
         numberOfentryGroup = arrayOfEntryGroup.length - 1;
 
-        for (i = 0; i < 1; i++) {
-          var entry = {},
-            word = $(".hwg .hw")[i].childNodes[0].nodeValue;
+        i = 0;
+        var entry = {},
+          word = $(".hwg .hw")[i].childNodes[0].nodeValue;
 
-          if (word.toLowerCase() != queriedWord) {
-            res.header("Access-Control-Allow-Origin", "*");
-            return res.status(404).send(
-              JSON.stringify({
-                error: "Cannot define the given word"
-              })
-            );
-          }
+        var checkWord = word.toLowerCase();
 
-          entry.word = word.toLowerCase();
+        var checkWordArray = checkWord.split("");
+        var queriedWordArray = queriedWord.split("");
+        var isSubSet = checkWordArray.every(val =>
+          queriedWordArray.includes(val)
+        );
 
-          entry.definition = {};
-
-          let start = arrayOfEntryGroup[i],
-            end = arrayOfEntryGroup[i + 1];
-
-          for (j = start; j < 1; j++) {
-            var partofspeech = $(grambs[j])
-              .find(".ps.pos .pos")
-              .text();
-
-            $(grambs[j])
-              .find(".semb")
-              .each(function(j, element) {
-                var meaningArray = [];
-
-                $(element)
-                  .find("> li")
-                  .each(function(j, element) {
-                    var newDefinition = {},
-                      item = $(element).find("> .trg"),
-                      definition = $(item)
-                        .find(" > p > .ind")
-                        .text();
-
-                    if (definition.length === 0) {
-                      definition = $(item)
-                        .find(".crossReference")
-                        .first()
-                        .text();
-                    }
-
-                    if (definition.length > 0) newDefinition = definition;
-
-                    meaningArray.push(newDefinition);
-                  });
-
-                entry.definition = meaningArray[0];
-              });
-          }
-          dictionary = entry;
+        if (
+          checkWord.length + 2 <= queriedWord.length ||
+          queriedWord.length < checkWord.length ||
+          !isSubSet
+        ) {
+          res.header("Access-Control-Allow-Origin", "*");
+          return res.status(404).send(
+            JSON.stringify({
+              error: "Cannot define the given word"
+            })
+          );
         }
+
+        entry.word = checkWord;
+
+        entry.definition = "";
+
+        var abbrv = $(grambs[0])
+          .find(" > .ps.pos")
+          .text();
+
+        if (abbrv == "abbreviation") {
+          res.header("Access-Control-Allow-Origin", "*");
+          return res.status(404).send(
+            JSON.stringify({
+              error: "Cannot define the given word"
+            })
+          );
+        }
+
+        j = 0;
+        $(grambs[j])
+          .find(".semb")
+          .each(function(j, element) {
+            var newDefinition = "";
+
+            $(element)
+              .find("> li")
+              .each(function(j, element) {
+                var item = $(element).find("> .trg"),
+                  definition = $(item)
+                    .find(" > p > .ind")
+                    .text();
+
+                if (definition.length > 0) newDefinition = definition;
+
+                return false;
+              });
+
+            entry.definition = newDefinition;
+            return false;
+          });
+
+        dictionary = entry;
 
         Object.keys(dictionary).forEach(key => {
           Array.isArray(dictionary[key]) &&

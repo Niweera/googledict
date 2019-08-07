@@ -31,7 +31,7 @@ router.get("/:word", function(req, res) {
       })
     );
   } else {
-    console.log(queriedWord);
+    // console.log(queriedWord);
 
     var url;
 
