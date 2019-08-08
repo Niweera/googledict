@@ -70,7 +70,6 @@ router.get("/:word", function(req, res) {
         }
 
         var dictionary = {},
-          numberOfentryGroup,
           arrayOfEntryGroup = [],
           grambs = $("section.gramb"),
           entryHead = $(".entryHead.primary_homograph");
@@ -89,113 +88,77 @@ router.get("/:word", function(req, res) {
 
         numberOfentryGroup = arrayOfEntryGroup.length - 1;
 
-        for (i = 0; i < 1; i++) {
-          var entry = {},
-            word = $(".hwg .hw")[i].childNodes[0].nodeValue;
+        i = 0;
+        var entry = {},
+          word = $(".hwg .hw")[i].childNodes[0].nodeValue;
 
-          var checkWord = word.toLowerCase();
+        var checkWord = word.toLowerCase();
 
-          var checkWordArray = checkWord.split("");
-          var queriedWordArray = queriedWord.split("");
-          var isSubSet = checkWordArray.every(val =>
-            queriedWordArray.includes(val)
+        var checkWordArray = checkWord.split("");
+        var queriedWordArray = queriedWord.split("");
+        var isSubSet = checkWordArray.every(val =>
+          queriedWordArray.includes(val)
+        );
+
+        if (
+          checkWord.length + 2 <= queriedWord.length ||
+          queriedWord.length < checkWord.length ||
+          !isSubSet
+        ) {
+          //res.header("Access-Control-Allow-Origin", "*");
+          return res.status(404).send(
+            JSON.stringify({
+              error: "Cannot define the given word"
+            })
           );
+        } else if (
+          checkWord.length + 1 == queriedWord.length &&
+          queriedWord.slice(-1) == "s"
+        ) {
+          entry.word = queriedWord;
+        } else {
+          entry.word = checkWord;
+        }
 
-          if (
-            checkWord.length + 2 <= queriedWord.length ||
-            queriedWord.length < checkWord.length ||
-            !isSubSet
-          ) {
-            //res.header("Access-Control-Allow-Origin", "*");
-            return res.status(404).send(
-              JSON.stringify({
-                error: "Cannot define the given word"
-              })
-            );
-          } else if (
-            checkWord.length + 1 == queriedWord.length &&
-            queriedWord.slice(-1) == "s"
-          ) {
-            entry.word = queriedWord;
-          } else {
-            entry.word = checkWord;
-          }
+        entry.definition = "";
 
-          var abbrv = $(grambs[0])
-            .find(" > .ps.pos")
-            .text();
+        var abbrv = $(grambs[0])
+          .find(" > .ps.pos")
+          .text();
 
-          if (abbrv == "abbreviation") {
-            //res.header("Access-Control-Allow-Origin", "*");
-            return res.status(404).send(
-              JSON.stringify({
-                error: "Cannot define the given word"
-              })
-            );
-          }
+        if (abbrv == "abbreviation") {
+          //res.header("Access-Control-Allow-Origin", "*");
+          return res.status(404).send(
+            JSON.stringify({
+              error: "Cannot define the given word"
+            })
+          );
+        }
 
-          entry.definition = "";
+        j = 0;
+        $(grambs[j])
+          .find(".semb")
+          .each(function(j, element) {
+            var newDefinition = "";
 
-          let start = arrayOfEntryGroup[i],
-            end = arrayOfEntryGroup[i + 1];
-
-          for (j = start; j < end; j++) {
-            $(grambs[j])
-              .find(".semb")
+            $(element)
+              .find("> li")
               .each(function(j, element) {
-                var newDefinition = null;
+                var item = $(element).find("> .trg"),
+                  definition = $(item)
+                    .find(" > p > .ind")
+                    .text();
 
-                $(element)
-                  .find("> li")
-                  .each(function(j, element) {
-                    (item = $(element).find("> .trg")),
-                      (definition = $(item)
-                        .find(" > p > .ind")
-                        .text());
-
-                    if (definition.length === 0) {
-                      definition = $(item)
-                        .find(".crossReference")
-                        .first()
-                        .text();
-                    }
-
-                    if (definition.length > 0) {
-                      newDefinition = definition;
-                    } else {
-                      return true;
-                    }
-                    if (newDefinition.length > 0) {
-                      entry.definition = newDefinition;
-                    } else {
-                      return res.status(404).send(
-                        JSON.stringify({
-                          error: "Cannot define the given word"
-                        })
-                      );
-                    }
-
-                    entry.definition = newDefinition;
-
-                    return false;
-                  });
+                if (definition.length > 0) newDefinition = definition;
 
                 return false;
               });
-            break;
-          }
-          dictionary = entry;
-          if (dictionary.definition === "") {
-            return res.status(404).send(
-              JSON.stringify({
-                error: "Cannot define the given word"
-              })
-            );
-          } else {
-            console.log(dictionary);
-          }
-          break;
-        }
+
+            entry.definition = newDefinition;
+            return false;
+          });
+
+        dictionary = entry;
 
         Object.keys(dictionary).forEach(key => {
           Array.isArray(dictionary[key]) &&
