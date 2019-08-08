@@ -62,7 +62,7 @@ router.get("/:word", function(req, res) {
           defns;
 
         if (word.length < 1) {
-          res.header("Access-Control-Allow-Origin", "*");
+          //res.header("Access-Control-Allow-Origin", "*");
           return res.status(404).send(
             JSON.stringify({
               error: "Cannot define the given word"
@@ -75,7 +75,7 @@ router.get("/:word", function(req, res) {
           .first()
           .text();
 
-        dictionary.word = queryWord.replace(/[^A-Za-z]/g, "");
+        dictionary.word = queryWord.replace(/[^A-Za-z]/g, "").toLowerCase();
 
         dictionary.definition = "";
 
@@ -110,7 +110,7 @@ router.get("/:word", function(req, res) {
         });
 
         res.header("Content-Type", "application/json");
-        res.header("Access-Control-Allow-Origin", "*");
+        //res.header("Access-Control-Allow-Origin", "*");
         res.send(JSON.stringify(dictionary, null, 4));
       }
     );
