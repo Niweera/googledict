@@ -31,8 +31,6 @@ router.get("/:word", function(req, res) {
       })
     );
   } else {
-    console.log(queriedWord);
-
     var url;
 
     url = `https://www.google.com/search?&q=define+${queriedWord}`;
@@ -61,17 +59,8 @@ router.get("/:word", function(req, res) {
           mainPart,
           defns;
 
-        if (word.toLowerCase() != queriedWord) {
-          res.header("Access-Control-Allow-Origin", "*");
-          return res.status(404).send(
-            JSON.stringify({
-              error: "Cannot define the given word"
-            })
-          );
-        }
-
         if (word.length < 1) {
-          res.header("Access-Control-Allow-Origin", "*");
+          //res.header("Access-Control-Allow-Origin", "*");
           return res.status(404).send(
             JSON.stringify({
               error: "Cannot define the given word"
@@ -84,7 +73,25 @@ router.get("/:word", function(req, res) {
           .first()
           .text();
 
-        dictionary.word = queryWord.replace(/[^A-Za-z]/g, "").toLowerCase();
+        if (
+          queryWord.replace(/[^A-Za-z]/g, "").toLowerCase().length + 1 ==
+            queriedWord.length &&
+          queriedWord.slice(-1) == "s"
+        ) {
+          dictionary.word = queriedWord;
+        } else if (
+          queryWord.replace(/[^A-Za-z]/g, "").toLowerCase().length + 1 <=
+            queriedWord.length &&
+          queriedWord.slice(-1) != "s"
+        ) {
+          return res.status(404).send(
+            JSON.stringify({
+              error: "Cannot define the given word"
+            })
+          );
+        } else {
+          dictionary.word = queryWord.replace(/[^A-Za-z]/g, "").toLowerCase();
+        }
 
         dictionary.definition = "";
 
@@ -119,7 +126,7 @@ router.get("/:word", function(req, res) {
         });
 
         res.header("Content-Type", "application/json");
-        res.header("Access-Control-Allow-Origin", "*");
+        //res.header("Access-Control-Allow-Origin", "*");
         res.send(JSON.stringify(dictionary, null, 4));
       }
     );

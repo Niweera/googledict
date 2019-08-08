@@ -61,7 +61,7 @@ router.get("/:word", function(req, res) {
           //     .text()
           // );
           // console.log(queriedWord + " is not present in Dictionary.");
-          res.header("Access-Control-Allow-Origin", "*");
+          //res.header("Access-Control-Allow-Origin", "*");
           return res.status(404).send(
             JSON.stringify({
               error: "Cannot define the given word"
@@ -105,15 +105,20 @@ router.get("/:word", function(req, res) {
           queriedWord.length < checkWord.length ||
           !isSubSet
         ) {
-          res.header("Access-Control-Allow-Origin", "*");
+          //res.header("Access-Control-Allow-Origin", "*");
           return res.status(404).send(
             JSON.stringify({
               error: "Cannot define the given word"
             })
           );
+        } else if (
+          checkWord.length + 1 == queriedWord.length &&
+          queriedWord.slice(-1) == "s"
+        ) {
+          entry.word = queriedWord;
+        } else {
+          entry.word = checkWord;
         }
-
-        entry.word = checkWord;
 
         entry.definition = "";
 
@@ -122,7 +127,7 @@ router.get("/:word", function(req, res) {
           .text();
 
         if (abbrv == "abbreviation") {
-          res.header("Access-Control-Allow-Origin", "*");
+          //res.header("Access-Control-Allow-Origin", "*");
           return res.status(404).send(
             JSON.stringify({
               error: "Cannot define the given word"
@@ -163,7 +168,7 @@ router.get("/:word", function(req, res) {
 
         if ($(".hwg .hw").first()[0]) {
           res.header("Content-Type", "application/json");
-          res.header("Access-Control-Allow-Origin", "*");
+          //res.header("Access-Control-Allow-Origin", "*");
           res.send(JSON.stringify(dictionary, null, 4));
         }
       }

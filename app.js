@@ -5,6 +5,7 @@ var favicon = require("serve-favicon");
 const v1Main = require("./routes/v1/main");
 const v2Main = require("./routes/v2/main");
 const wh = require("./routes/wh/wh");
+const whGoogle = require("./routes/wh/main");
 
 const app = express();
 app.use(favicon(path.join(__dirname, "./favicon.png")));
@@ -21,6 +22,7 @@ app.use(function(req, res, next) {
 
 // Use Routes
 app.use("/wh", wh);
+app.use("/whg", whGoogle);
 app.use("/v2", v2Main);
 app.use("/", v1Main); //this route must be at the end
 
