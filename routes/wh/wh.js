@@ -151,8 +151,7 @@ router.get("/:word", function(req, res) {
 
                     if (definition.length === 0) {
                       definition = $(item)
-                        .find(".crossReference")
-                        .first()
+                        .find(" > .ind")
                         .text();
                     }
 
@@ -164,32 +163,72 @@ router.get("/:word", function(req, res) {
                     if (newDefinition.length > 0) {
                       entry.definition = newDefinition;
                     } else {
-                      return res.status(404).send(
-                        JSON.stringify({
-                          error: "Cannot define the given word"
-                        })
-                      );
+                      return false;
                     }
-
-                    entry.definition = newDefinition;
-
                     return false;
                   });
-
                 return false;
               });
             break;
           }
-          dictionary = entry;
-          if (dictionary.definition === "") {
-            return res.status(404).send(
-              JSON.stringify({
-                error: "Cannot define the given word"
-              })
-            );
+
+          if (entry.definition === "") {
+            for (j = start; j < end; j++) {
+              $(grambs[j])
+                .find(".empty_sense")
+                .each(function(j, element) {
+                  var newDefinition = null;
+
+                  $(element)
+                    .find("> .crossReference")
+                    .each(function(j, element) {
+                      definition = $(element).text();
+
+                      if (definition.length === 0) {
+                        definition = $(item)
+                          .find(" > .ind")
+                          .text();
+                      }
+
+                      if (definition.length > 0) {
+                        newDefinition = definition;
+                      } else {
+                        return true;
+                      }
+                      if (newDefinition.length > 0) {
+                        entry.definition = newDefinition;
+                      } else {
+                        return false;
+                      }
+                      return false;
+                    });
+                  return false;
+                });
+              break;
+            }
+            dictionary = entry;
+            if (dictionary.definition === "") {
+              return res.status(404).send(
+                JSON.stringify({
+                  error: "Cannot define the given word"
+                })
+              );
+            } else {
+              console.log(dictionary);
+            }
           } else {
-            console.log(dictionary);
+            dictionary = entry;
+            if (dictionary.definition === "") {
+              return res.status(404).send(
+                JSON.stringify({
+                  error: "Cannot define the given word"
+                })
+              );
+            } else {
+              console.log(dictionary);
+            }
           }
+
           break;
         }
 
