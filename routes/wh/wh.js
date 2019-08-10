@@ -101,11 +101,7 @@ router.get("/:word", function(req, res) {
             queriedWordArray.includes(val)
           );
 
-          if (
-            checkWord.length + 2 <= queriedWord.length ||
-            queriedWord.length < checkWord.length ||
-            !isSubSet
-          ) {
+          if (queriedWord.length < checkWord.length || !isSubSet) {
             //res.header("Access-Control-Allow-Origin", "*");
             return res.status(404).send(
               JSON.stringify({
@@ -113,8 +109,8 @@ router.get("/:word", function(req, res) {
               })
             );
           } else if (
-            checkWord.length + 1 == queriedWord.length &&
-            queriedWord.slice(-1) == "s"
+            checkWord.concat("s") == queriedWord ||
+            checkWord.concat("es") == queriedWord
           ) {
             entry.word = queriedWord;
           } else {
