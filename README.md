@@ -1,3 +1,10 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![HitCount](http://hits.dwyl.io/Niweera/googledict.svg)](http://hits.dwyl.io/Niweera/googledict)
+[![Known Vulnerabilities](https://snyk.io//test/github/Niweera/googledict/badge.svg?targetFile=package.json)](https://snyk.io//test/github/Niweera/googledict?targetFile=package.json)
+![GitHub issues](https://img.shields.io/github/issues/Niweera/googledict)
+![Website](https://img.shields.io/website/https/dict.niweera.gq?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online)
+
+
 # A Simplified Google Dictionary API
 
 ## Getting Started
