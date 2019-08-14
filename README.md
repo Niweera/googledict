@@ -3,7 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io//test/github/Niweera/googledict/badge.svg?targetFile=package.json)](https://snyk.io//test/github/Niweera/googledict?targetFile=package.json)
 ![GitHub issues](https://img.shields.io/github/issues/Niweera/googledict)
 ![Website](https://img.shields.io/website/https/dict.niweera.gq?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online)
-
+[![Build Status](https://travis-ci.com/Niweera/googledict.svg?branch=master)](https://travis-ci.com/Niweera/googledict)
 
 # A Simplified Google Dictionary API
 
@@ -30,39 +30,33 @@ Eg. `https://dict.niweera.gq/v2/hello`, will give you the Google dictionary defi
 {
   "word": "hello",
   "definition": {
-    "exclamation": [
-      "used as a greeting or to begin a telephone conversation."
-    ],
-    "noun": [
-      "an utterance of ‘hello’; a greeting."
-    ],
-    "verb": [
-      "say or shout ‘hello’."
-    ]
+    "exclamation": ["used as a greeting or to begin a telephone conversation."],
+    "noun": ["an utterance of ‘hello’; a greeting."],
+    "verb": ["say or shout ‘hello’."]
   }
 }
 ```
 
 ### Paths
 
-| Location | Endpoint |
-| :-- | :-- |
-| v1 Root path | `https://dict.niweera.gq/`|
-| v2 Root path | `https://dict.niweera.gq/v2`|
+| Location     | Endpoint                     |
+| :----------- | :--------------------------- |
+| v1 Root path | `https://dict.niweera.gq/`   |
+| v2 Root path | `https://dict.niweera.gq/v2` |
 
 ### HTTP request and query methods
 
-| Method | Endpoint | Query | Description | Examples |
-| :-- | :-- | :-- | :-- | :-- |
-| `GET` | `/` | `{word}` | Give JSON response with the definitions of the `{word}`. | [`hello`](https://dict.niweera.gq/hello) |
-| `GET` | `/v2` | `{word}` | Give JSON response with the definitions of the `{word}`. | [`hello`](https://dict.niweera.gq/v2/hello) |
+| Method | Endpoint | Query    | Description                                              | Examples                                    |
+| :----- | :------- | :------- | :------------------------------------------------------- | :------------------------------------------ |
+| `GET`  | `/`      | `{word}` | Give JSON response with the definitions of the `{word}`. | [`hello`](https://dict.niweera.gq/hello)    |
+| `GET`  | `/v2`    | `{word}` | Give JSON response with the definitions of the `{word}`. | [`hello`](https://dict.niweera.gq/v2/hello) |
 
 ### Invalid use of GoogleDict
 
-| Method | Endpoint | Query | Description | Examples |
-| :-- | :-- | :-- | :-- | :-- |
-| `GET` | `/` | `{word anotherWord}` | The API will only refer the first word given. All following words will be ignored. Please use only a single word in the query. | [`hell fire`](https://dict.niweera.gq/hell%20fire) |
-| `GET` | `/v2` | `{word anotherWord}` | The API will only refer the first word given. All following words will be ignored. Please use only a single word in the query. | [`hell fire`](https://dict.niweera.gq/v2/hell%20fire) |
+| Method | Endpoint | Query                | Description                                                                                                                    | Examples                                              |
+| :----- | :------- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
+| `GET`  | `/`      | `{word anotherWord}` | The API will only refer the first word given. All following words will be ignored. Please use only a single word in the query. | [`hell fire`](https://dict.niweera.gq/hell%20fire)    |
+| `GET`  | `/v2`    | `{word anotherWord}` | The API will only refer the first word given. All following words will be ignored. Please use only a single word in the query. | [`hell fire`](https://dict.niweera.gq/v2/hell%20fire) |
 
 ## Related Projects
 
@@ -74,7 +68,7 @@ Eg. `https://dict.niweera.gq/v2/hello`, will give you the Google dictionary defi
 
 Nipuna Weerasekara – [@Niweera](https://twitter.com/Niweera) – w.nipuna@gmail.com
 
-Distributed under the MIT license. See ``LICENSE`` for more information.
+Distributed under the MIT license. See `LICENSE` for more information.
 
 [https://github.com/Niweera/googledict](https://github.com/Niweera/googledict)
 
@@ -89,4 +83,3 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 ## Acknowledgement
 
 Without the insights from this repo [googleDictionaryAPI](https://github.com/meetDeveloper/googleDictionaryAPI) by [meetDeveloper](https://github.com/meetDeveloper), the development of GoogleDict Dictionary API service would be impossible...
-
