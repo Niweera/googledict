@@ -4,7 +4,7 @@
   "description": "Simplified Google Dictionary API.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Info: no test specified\" && exit 0",
     "start": "node app.js"
   },
   "author": "Nipuna Weerasekara",
