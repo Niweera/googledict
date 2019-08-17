@@ -4,14 +4,17 @@
   "description": "Simplified Google Dictionary API.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Info: no test specified\" && exit 0",
+    "test": "mocha --timeout 180000",
     "start": "node app.js"
   },
   "author": "Nipuna Weerasekara",
   "license": "MIT",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.2",
+    "mocha": "^6.2.0",
     "random-useragent": "^0.3.1",
     "request": "^2.83.0",
     "serve-favicon": "^2.5.0"
