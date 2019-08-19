@@ -7,7 +7,7 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe("Dict/hello", () => {
-  beforeEach(done => setTimeout(done, 180000));
+  beforeEach(done => setTimeout(done, 120000));
   /*
    * Test the /GET route
    */
