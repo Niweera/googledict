@@ -9,7 +9,7 @@ script: 'true'
 deploy:
   provider: gae
   keyfile: gae.json
-  project: pro-bruin-207112
+  project: whunter
   skip_cleanup: true
   on:
     branch: master
